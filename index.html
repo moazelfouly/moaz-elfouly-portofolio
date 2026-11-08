@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moaz Elfouly | Backend Developer</title>
+<meta name="description" content="Junior backend developer building REST APIs with Node.js, Express.js and NestJS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F4F8; --surface:#FFFFFF; --ink:#14202E; --muted:#556375; --line:#D5DCE5;
+  --accent:#1F5FBF; --panel:#0F1A2A; --panel-ink:#D7E3F4; --ok:#4ADE80; --key:#8EB8FF; --str:#F2C979;
+  --head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1320; --surface:#111D2F; --ink:#E6EDF7; --muted:#9AA9BC; --line:#23344B;
+    --accent:#7FB0FF; --panel:#070E19;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+header.top .logo{font:700 1.1rem var(--head);color:var(--ink);text-decoration:none}
+header.top nav{display:flex;gap:22px}
+header.top nav a{color:var(--muted);text-decoration:none;font-size:.95rem}
+header.top nav a:hover{color:var(--ink)}
+
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;padding:56px 0 72px}
+.hero h1{font:700 clamp(2.2rem,5vw,3.4rem)/1.08 var(--head);letter-spacing:-.02em;margin:0 0 20px}
+.hero p{color:var(--muted);margin:0 0 28px;max-width:46ch}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:11px 20px;border-radius:8px;font-weight:500;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{opacity:.85}
+
+.panel{background:var(--panel);color:var(--panel-ink);border-radius:12px;font:400 .9rem/1.7 var(--mono);overflow-x:auto}
+.panel .bar{display:flex;justify-content:space-between;gap:16px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.panel .ok{color:var(--ok)}
+.panel pre{margin:0;padding:16px 18px 20px;font:inherit}
+.k{color:var(--key)} .s{color:var(--str)}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font:700 1.7rem/1.2 var(--head);letter-spacing:-.01em;margin:0 0 28px}
+.about{max-width:62ch;color:var(--muted)}
+.about p{margin:0 0 14px}
+
+.skills{display:grid;grid-template-columns:160px 1fr;row-gap:14px;column-gap:24px;margin:0}
+.skills dt{font-weight:500}
+.skills dd{margin:0;color:var(--muted)}
+
+.project{display:grid;grid-template-columns:1fr auto;gap:8px 32px;padding:28px 0;border-bottom:1px solid var(--line)}
+.project:first-of-type{padding-top:0}
+.project:last-of-type{border-bottom:0}
+.project h3{font:700 1.25rem var(--head);margin:0 0 6px}
+.project p{margin:0 0 12px;color:var(--muted);max-width:60ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.tags li{font:500 .8rem var(--mono);padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.route{font:500 .8rem var(--mono);color:var(--accent)}
+.project .go{align-self:start;white-space:nowrap;font-weight:500}
+
+.edu{list-style:none;padding:0;margin:0}.edu li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}.edu li:last-child{border-bottom:0}.edu span{color:var(--muted);white-space:nowrap}
+.kind{font:500 .8rem var(--mono);color:var(--muted);margin:0 0 6px}
+.contact p{margin:0 0 18px;color:var(--muted);max-width:52ch}
+footer{padding:32px 0 48px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:32px;padding-top:24px}
+  .skills{grid-template-columns:1fr;row-gap:2px}
+  .skills dd{margin-bottom:12px}
+  .project{grid-template-columns:1fr}
+  header.top nav{gap:14px}
+}
+.wa{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);z-index:50;transition:transform .15s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:30px;height:30px;fill:#fff}
+@media (prefers-reduced-motion:reduce){.wa{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#top">Moaz Elfouly</a>
+    <nav aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>I build clean, secure REST APIs.</h1>
+        <p>Junior backend developer working with Node.js, Express.js and NestJS. I like understanding how things work under the hood and writing code that stays easy to maintain.</p>
+        <div class="btns">
+          <a class="btn primary" href="#projects">See my projects</a>
+          <a class="btn" href="Moaz_Elfouly_CV.pdf" download>Download CV</a>
+          <a class="btn" href="https://github.com/moazelfouly">GitHub</a>
+        </div>
+      </div>
+      <div class="panel" role="img" aria-label="Sample API response describing Moaz Elfouly">
+        <div class="bar"><span>GET /developers/moaz</span><span class="ok">200 OK</span></div>
+<pre>{
+  <span class="k">"name"</span>: <span class="s">"Moaz Elfouly"</span>,
+  <span class="k">"role"</span>: <span class="s">"Backend Developer"</span>,
+  <span class="k">"stack"</span>: [<span class="s">"Node.js"</span>, <span class="s">"Express.js"</span>,
+            <span class="s">"NestJS"</span>, <span class="s">"TypeScript"</span>],
+  <span class="k">"databases"</span>: [<span class="s">"MySQL"</span>, <span class="s">"MongoDB"</span>,
+                <span class="s">"Redis"</span>],
+  <span class="k">"openToWork"</span>: true
+}</pre>
+      </div>
+    </div>
+
+    <section id="about">
+      <h2>About</h2>
+      <div class="about">
+        <p>I’m a backend developer with a solid base in JavaScript, TypeScript, object-oriented programming, data structures, algorithms and software design principles such as SOLID and common design patterns.</p>
+        <p>I came to backend development from a career as an English translator, which shaped how I write documentation and explain technical decisions.</p>
+        <p>I’m looking for a team where I can work on challenging projects and learn from experienced engineers.</p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="project">
+        <div>
+          <p class="kind">Client project, UAE</p>
+          <h3>Hurayra Pet Foods e-commerce platform</h3>
+          <p>An e-commerce backend with a modular JavaScript architecture. It syncs inventory automatically with Odoo ERP, hands deliveries to the Jeebly logistics service, and runs background jobs through Bull queues. A Jest test suite covers the core logic.</p>
+          <ul class="tags"><li>Node.js</li><li>Express</li><li>Odoo ERP</li><li>Jeebly</li><li>Bull</li><li>Jest</li></ul>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Saraha App</h3>
+          <p>An anonymous messaging backend built with a repository-pattern architecture. It has JWT authorization with token revocation, Gmail social login, email notifications, file uploads and database transactions. Security covers encryption, password hashing, Helmet, rate limiting and CSRF protection.</p>
+          <ul class="tags"><li>Node.js</li><li>Express.js</li><li>MongoDB</li><li>Mongoose</li><li>Redis</li><li>JWT</li><li>Nodemailer</li></ul>
+        </div>
+        <a class="go" href="https://github.com/moazelfouly/Saraha-App">View repository</a>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Blog App backend</h3>
+          <p>An authentication-focused API with validated signup, JWT login, bcrypt password hashing and a pooled MySQL connection. Tested for missing fields, wrong credentials and duplicate emails.</p>
+          <p class="route">POST /auth/signup &nbsp; POST /auth/login</p>
+          <ul class="tags"><li>Node.js</li><li>Express.js</li><li>MySQL</li><li>mysql2</li><li>bcrypt</li><li>JWT</li><li>Postman</li></ul>
+        </div>
+        <a class="go" href="https://github.com/moazelfouly/Blog-App">View repository</a>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>User Management API</h3>
+          <p>Signup, login, full CRUD, account freeze and logout, with in-memory storage to keep the focus on routing and API design. Fully tested with Postman.</p>
+          <ul class="tags"><li>Node.js</li><li>Express.js</li><li>CORS</li><li>UUID</li><li>Postman</li></ul>
+        </div>
+        <a class="go" href="https://github.com/moazelfouly/User-Management-Project">View repository</a>
+      </article>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt><dd>JavaScript, TypeScript</dd>
+        <dt>Frameworks</dt><dd>Node.js, Express.js, NestJS</dd>
+        <dt>Databases</dt><dd>MySQL, Sequelize, MongoDB, Mongoose, Redis</dd>
+        <dt>APIs</dt><dd>REST, GraphQL, request validation, pagination, error handling, file uploads</dd>
+        <dt>Security</dt><dd>Authentication and authorization, hashing and encryption, Helmet, CORS, CSRF protection, rate limiting, sessions and cookies, social login</dd>
+        <dt>Background work</dt><dd>Bull queues, cron jobs, Socket.io, Nodemailer, PDF and QR code generation</dd>
+        <dt>Fundamentals</dt><dd>Data structures, algorithms, OOP, SOLID, design patterns, unit testing</dd>
+        <dt>Tools</dt><dd>Git, GitHub, Postman, Docker</dd>
+        <dt>Languages spoken</dt><dd>Arabic (native), English (advanced)</dd>
+      </dl>
+    </section>
+
+    <section id="education">
+      <h2>Education and training</h2>
+      <ul class="edu">
+        <li>Backend Development Diploma using Node.js, Route Academy <span>2026</span></li>
+        <li>Node.js from Scratch, Cloud Native Base Camp <span>2026</span></li>
+        <li>Problem-Solving Boot Camp, Elevate <span>2025</span></li>
+        <li>Database Fundamentals, Mahara Tech <span>2025</span></li>
+        <li>Programming Fundamentals Diploma, Route Academy <span>2025</span></li>
+        <li>Mastering OOP using C++, Mahara Tech <span>2025</span></li>
+        <li>CS50: Introduction to Computer Science, Harvard University <span>2025</span></li>
+      </ul>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p>I’m open to backend developer roles. Email me or message me on LinkedIn.</p>
+      <div class="btns">
+        <a class="btn primary" href="mailto:moazelfouli@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/moaz-elfouly-ab2536184/">LinkedIn</a>
+        <a class="btn" href="https://github.com/moazelfouly">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Moaz Elfouly</footer>
+</div>
+<a class="wa" href="https://wa.me/201019582398?text=Hi%20Moaz%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener" aria-label="Chat with Moaz on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+</body>
+</html>
